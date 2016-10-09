@@ -1,0 +1,239 @@
+graph erd {
+	overlap = false;
+	rankdir = LR;
+	subgraph {
+		node [group="table", shape=box, rank=same];
+		attendance;
+		cathedra;
+		/*cathedra_teacher;*/
+		certificate;
+		certificate;
+		discipline;
+		/*discipline_teacher;*/
+		group;
+		/*group_student;*/
+		institute;
+		student;
+		teacher;
+		university;
+	}
+
+	subgraph {
+		subgraph {
+			attendance_pk_id [label="id"];
+			attendance -- attendance_pk_id
+			attendance_nk_student_id [label="student_id"];
+			attendance -- attendance_nk_student_id
+			attendance_nk_class_id [label="class_id"];
+			attendance -- attendance_nk_class_id
+			attendance_nk_mark [label="mark"];
+			attendance -- attendance_nk_mark
+			attendance_nk_presence [label="presence"];
+			attendance -- attendance_nk_presence
+			attendance_nk_reason [label="reason"];
+			attendance -- attendance_nk_reason
+		}
+
+		subgraph {
+			cathedra_pk_id [label="id"];
+			cathedra -- cathedra_pk_id
+			cathedra_nk_name [label="name"];
+			cathedra -- cathedra_nk_name
+			cathedra_nk_institute_id [label="institute_id"];
+			cathedra -- cathedra_nk_institute_id
+			cathedra_nk_site [label="site"];
+			cathedra -- cathedra_nk_site
+			cathedra_nk_email [label="email"];
+			cathedra -- cathedra_nk_email
+			cathedra_nk_phone [label="phone"];
+			cathedra -- cathedra_nk_phone
+		}
+
+		/*cathedra_teacher_pk_id [label="id"];
+		cathedra_teacher -- cathedra_teacher_pk_id
+		cathedra_teacher_nk_cathedra_id [label="cathedra_id"];
+		cathedra_teacher -- cathedra_teacher_nk_cathedra_id
+		cathedra_teacher_nk_teacher_id [label="teacher_id"];
+		cathedra_teacher -- cathedra_teacher_nk_teacher_id*/
+
+
+		subgraph {
+			class_pk_id [label="id"];
+			class -- class_pk_id
+			class_nk_discipline_id [label="discipline_id"];
+			class -- class_nk_discipline_id
+			class_nk_teacher_id [label="teacher_id"];
+			class -- class_nk_teacher_id
+			class_nk_group_id [label="group_id"];
+			class -- class_nk_group_id
+			class_nk_date [label="date"];
+			class -- class_nk_date
+			class_nk_type [label="type"];
+			class -- class_nk_type
+		}
+
+		subgraph {
+			certificate_pk_id [label="id"];
+			certificate -- certificate_pk_id
+			certificate_nk_student_id [label="student_id"];
+			certificate -- certificate_nk_student_id
+			certificate_nk_date_from [label="date_from"];
+			certificate -- certificate_nk_date_from
+			certificate_nk_date_to [label="date_to"];
+			certificate -- certificate_nk_date_to
+		}
+
+		subgraph {
+			discipline_pk_id [label="id"];
+			discipline -- discipline_pk_id
+			discipline_nk_name [label="name"];
+			discipline -- discipline_nk_name
+		}
+
+		/*discipline_teacher_pk_id [label="id"];
+		discipline_teacher -- discipline_teacher_pk_id
+		discipline_teacher_nk_discipline_id [label="discipline_id"];
+		discipline_teacher -- discipline_teacher_nk_discipline_id
+		discipline_teacher_nk_teacher_id [label="teacher_id"];
+		discipline_teacher -- discipline_teacher_nk_teacher_id*/
+
+		subgraph {
+			group_pk_id [label="id"];
+			group -- group_pk_id
+			group_nk_name [label="name"];
+			group -- group_nk_name
+			group_nk_course [label="course"];
+			group -- group_nk_course
+			group_nk_cathedra_id [label="cathedra_id"];
+			group -- group_nk_cathedra_id
+			group_nk_steward_id [label="steward_id"];
+			group -- group_nk_steward_id
+			group_nk_super_id [label="super_id"];
+			group -- group_nk_super_id
+		}
+		/*group_student_pk_id [label="id"];
+		group_student -- group_student_pk_id
+		group_student_nk_group_id [label="group_id"];
+		group_student -- group_student_nk_group_id
+		group_student_nk_student_id [label="student_id"];
+		group_student -- group_student_nk_student_id*/
+
+		subgraph {
+			institute_pk_id [label="id"];
+			institute -- institute_pk_id
+			institute_nk_name [label="name"];
+			institute -- institute_nk_name
+			institute_nk_university_id [label="university_id"];
+			institute -- institute_nk_university_id
+			institute_nk_site [label="site"];
+			institute -- institute_nk_site
+			institute_nk_email [label="email"];
+			institute -- institute_nk_email
+			institute_nk_phone [label="phone"];
+			institute -- institute_nk_phone
+		}
+
+		subgraph {
+			rankdir=rl;
+			student_pk_id [label="id"];
+			student -- student_pk_id
+			student_nk_name [label="name"];
+			student -- student_nk_name
+			student_nk_address [label="address"];
+			student -- student_nk_address
+			student_nk_email [label="email"];
+			student -- student_nk_email
+			student_nk_phone [label="phone"];
+			student -- student_nk_phone
+		}
+
+		subgraph {
+			teacher_pk_id [label="id"];
+			teacher -- teacher_pk_id
+			teacher_nk_name [label="name"];
+			teacher -- teacher_nk_name
+			teacher_nk_email [label="email"];
+			teacher -- teacher_nk_email
+			teacher_nk_phone [label="phone"];
+			teacher -- teacher_nk_phone
+			teacher_nk_address [label="address"];
+			teacher -- teacher_nk_address
+		}
+
+		subgraph {
+			university_pk_id [label="id"];
+			university -- university_pk_id
+			university_nk_name [label="name"];
+			university -- university_nk_name
+			university_nk_adddress [label="adddress"];
+			university -- university_nk_adddress
+			university_nk_site [label="site"];
+			university -- university_nk_site
+			university_nk_email [label="email"];
+			university -- university_nk_email
+			university_nk_phone [label="phone"];
+			university -- university_nk_phone
+		}
+	}
+
+	subgraph {
+		node [shape=diamond];
+		university_institute_fk [label="Является частью"];
+		institute_cathedra_fk [label="Является частью"];
+		cathedra_group_fk [label="Относится к"];
+		cathedra_teacher_fk [label="Преподаёт на"];
+		discipline_teacher_fk [label="Преподаёт"];
+		discipline_class_fk [label="Занятие по"];
+		group_class_fk [label="У группы"];
+		group_student_fk [label="Учится в"];
+		student_certificate_fk [label="Студента"];
+		attendance_student_fk [label="Студент"];
+		attendance_class_fk [label="На паре"];
+		group_group_fk [label="Подгруппа"]
+		class_teacher_fk [label="Ведёт"]
+
+	}
+
+	subgraph {
+		university -- university_institute_fk [label="1"];
+		university_institute_fk -- institute [color="black:invis:black", label="N"];
+
+		institute -- institute_cathedra_fk [label="1"];
+		institute_cathedra_fk -- cathedra [color="black:invis:black", label="N"];
+
+		cathedra -- cathedra_group_fk [label="1"];
+		cathedra_group_fk -- group [color="black:invis:black", label="N"];
+
+		cathedra -- cathedra_teacher_fk [color="black:invis:black", label="M"];
+		cathedra_teacher_fk -- teacher [color="black:invis:black", label="N"];
+
+		discipline -- discipline_teacher_fk [color="black:invis:black", label="M"];
+		discipline_teacher_fk -- teacher [color="black:invis:black", label="N"];
+
+		discipline -- discipline_class_fk [label="1"];
+		discipline_class_fk -- class [color="black:invis:black", label="N"];
+
+		group -- group_class_fk [label="1"];
+		group_class_fk -- class [color="black:invis:black", label="N"];
+
+		group -- group_student_fk [color="black:invis:black", label="M"];
+		group_student_fk -- student [color="black:invis:black", label="N"];
+
+		student -- student_certificate_fk [label="1"];
+		student_certificate_fk -- certificate [color="black:invis:black", label="N"];
+
+		student -- attendance_student_fk [label="1"];
+		attendance_student_fk -- attendance [color="black:invis:black", label="N"];
+
+		class -- attendance_class_fk [label="1"];
+		attendance_class_fk -- attendance [color="black:invis:black", label="N"];
+
+		group -- group_group_fk [label="1"];
+		group_group_fk -- group [color="black:invis:black", label="N"];
+
+		teacher -- class_teacher_fk [label="1"];
+		class_teacher_fk -- class [color="black:invis:black", label="N"];
+	}
+
+	{rank=same;university; institute;}
+}
