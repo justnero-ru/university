@@ -3,49 +3,50 @@ graph erd {
 	rankdir = LR;
 	subgraph {
 		node [group="table", shape=box, rank=same];
-		attendance;
-		cathedra;
+		attendance [label="Посещение"];
+		cathedra [label="Кафедра"];
 		/*cathedra_teacher;*/
-		certificate;
-		certificate;
-		discipline;
+		/*certificate;*/
+		discipline [label="Дисциплина"];
 		/*discipline_teacher;*/
-		group;
+		group [label="Группа"];
 		/*group_student;*/
-		institute;
-		student;
-		teacher;
-		university;
+		institute [label="Институт"];
+		student [label="Студент"];
+		teacher [label="Преподаватель"];
+		university [label="Университет"];
+		user [label="Пользователь"];
+		class [label="Зантие"]
 	}
 
 	subgraph {
 		subgraph {
-			attendance_pk_id [label="id"];
+			attendance_pk_id [label=<<u>Идентификатор</u>>];
 			attendance -- attendance_pk_id
-			attendance_nk_student_id [label="student_id"];
+			attendance_nk_student_id [label="Идентификатор студента"];
 			attendance -- attendance_nk_student_id
-			attendance_nk_class_id [label="class_id"];
+			attendance_nk_class_id [label="Идентификатор занятия"];
 			attendance -- attendance_nk_class_id
-			attendance_nk_mark [label="mark"];
+			attendance_nk_mark [label="Оценка"];
 			attendance -- attendance_nk_mark
-			attendance_nk_presence [label="presence"];
+			attendance_nk_presence [label="Присутствие"];
 			attendance -- attendance_nk_presence
-			attendance_nk_reason [label="reason"];
+			attendance_nk_reason [label="Причина отсутствия"];
 			attendance -- attendance_nk_reason
 		}
 
 		subgraph {
-			cathedra_pk_id [label="id"];
+			cathedra_pk_id [label=<<u>Идентификатор</u>>];
 			cathedra -- cathedra_pk_id
-			cathedra_nk_name [label="name"];
+			cathedra_nk_name [label="Название"];
 			cathedra -- cathedra_nk_name
-			cathedra_nk_institute_id [label="institute_id"];
+			cathedra_nk_institute_id [label="Идентификатор института"];
 			cathedra -- cathedra_nk_institute_id
-			cathedra_nk_site [label="site"];
+			cathedra_nk_site [label="Сайт"];
 			cathedra -- cathedra_nk_site
-			cathedra_nk_email [label="email"];
+			cathedra_nk_email [label="Почта"];
 			cathedra -- cathedra_nk_email
-			cathedra_nk_phone [label="phone"];
+			cathedra_nk_phone [label="Телефон"];
 			cathedra -- cathedra_nk_phone
 		}
 
@@ -58,21 +59,25 @@ graph erd {
 
 
 		subgraph {
-			class_pk_id [label="id"];
+			class_pk_id [label=<<u>Идентификатор</u>>];
 			class -- class_pk_id
-			class_nk_discipline_id [label="discipline_id"];
+			class_nk_discipline_id [label="Идентификатор дисциплины"];
 			class -- class_nk_discipline_id
-			class_nk_teacher_id [label="teacher_id"];
+			class_nk_teacher_id [label="Идентификатор преподавателя"];
 			class -- class_nk_teacher_id
-			class_nk_group_id [label="group_id"];
+			class_nk_group_id [label="Идентификатор группы"];
 			class -- class_nk_group_id
-			class_nk_date [label="date"];
+			class_nk_date [label="Дата занятия"];
 			class -- class_nk_date
-			class_nk_type [label="type"];
+			class_nk_duration [label="Длительность"];
+			class -- class_nk_duration
+			class_nk_location [label="Кабинет"];
+			class -- class_nk_location
+			class_nk_type [label="Тип"];
 			class -- class_nk_type
 		}
 
-		subgraph {
+		/*subgraph {
 			certificate_pk_id [label="id"];
 			certificate -- certificate_pk_id
 			certificate_nk_student_id [label="student_id"];
@@ -81,12 +86,12 @@ graph erd {
 			certificate -- certificate_nk_date_from
 			certificate_nk_date_to [label="date_to"];
 			certificate -- certificate_nk_date_to
-		}
+		}*/
 
 		subgraph {
-			discipline_pk_id [label="id"];
+			discipline_pk_id [label=<<u>Идентификатор</u>>];
 			discipline -- discipline_pk_id
-			discipline_nk_name [label="name"];
+			discipline_nk_name [label="Название"];
 			discipline -- discipline_nk_name
 		}
 
@@ -98,17 +103,17 @@ graph erd {
 		discipline_teacher -- discipline_teacher_nk_teacher_id*/
 
 		subgraph {
-			group_pk_id [label="id"];
+			group_pk_id [label=<<u>Идентификатор</u>>];
 			group -- group_pk_id
-			group_nk_name [label="name"];
+			group_nk_name [label="Название"];
 			group -- group_nk_name
-			group_nk_course [label="course"];
+			group_nk_course [label="Курс"];
 			group -- group_nk_course
-			group_nk_cathedra_id [label="cathedra_id"];
+			group_nk_cathedra_id [label="Идентификатор кафедры"];
 			group -- group_nk_cathedra_id
-			group_nk_steward_id [label="steward_id"];
+			group_nk_steward_id [label="Идентификатор старосты"];
 			group -- group_nk_steward_id
-			group_nk_super_id [label="super_id"];
+			group_nk_super_id [label="Идентификатор родительской группы"];
 			group -- group_nk_super_id
 		}
 		/*group_student_pk_id [label="id"];
@@ -119,79 +124,94 @@ graph erd {
 		group_student -- group_student_nk_student_id*/
 
 		subgraph {
-			institute_pk_id [label="id"];
+			institute_pk_id [label=<<u>Идентификатор</u>>];
 			institute -- institute_pk_id
-			institute_nk_name [label="name"];
+			institute_nk_name [label="Название"];
 			institute -- institute_nk_name
-			institute_nk_university_id [label="university_id"];
+			institute_nk_university_id [label="Идентификатор университета"];
 			institute -- institute_nk_university_id
-			institute_nk_site [label="site"];
+			institute_nk_site [label="Сайт"];
 			institute -- institute_nk_site
-			institute_nk_email [label="email"];
+			institute_nk_email [label="Почта"];
 			institute -- institute_nk_email
-			institute_nk_phone [label="phone"];
+			institute_nk_phone [label="Телефон"];
 			institute -- institute_nk_phone
 		}
 
 		subgraph {
 			rankdir=rl;
-			student_pk_id [label="id"];
+			student_pk_id [label=< <u>Идентификатор</u> >];
 			student -- student_pk_id
-			student_nk_name [label="name"];
+			student_nk_name [label="Ф.И.О."];
 			student -- student_nk_name
-			student_nk_address [label="address"];
+			student_nk_address [label="Адрес"];
 			student -- student_nk_address
-			student_nk_email [label="email"];
+			student_nk_email [label="Почта"];
 			student -- student_nk_email
-			student_nk_phone [label="phone"];
+			student_nk_phone [label="Телефон"];
 			student -- student_nk_phone
 		}
 
 		subgraph {
-			teacher_pk_id [label="id"];
+			teacher_pk_id [label=<<u>Идентификатор</u>>];
 			teacher -- teacher_pk_id
-			teacher_nk_name [label="name"];
+			teacher_nk_name [label="Ф.И.О."];
 			teacher -- teacher_nk_name
-			teacher_nk_email [label="email"];
+			teacher_nk_email [label="Почта"];
 			teacher -- teacher_nk_email
-			teacher_nk_phone [label="phone"];
+			teacher_nk_phone [label="Телефон"];
 			teacher -- teacher_nk_phone
-			teacher_nk_address [label="address"];
+			teacher_nk_address [label="Адрес"];
 			teacher -- teacher_nk_address
 		}
 
 		subgraph {
-			university_pk_id [label="id"];
+			university_pk_id [label=<<u>Идентификатор</u>>];
 			university -- university_pk_id
-			university_nk_name [label="name"];
+			university_nk_name [label="Название"];
 			university -- university_nk_name
-			university_nk_adddress [label="adddress"];
-			university -- university_nk_adddress
-			university_nk_site [label="site"];
+			university_nk_address [label="Адрес"];
+			university -- university_nk_address
+			university_nk_site [label="Сайт"];
 			university -- university_nk_site
-			university_nk_email [label="email"];
+			university_nk_email [label="Почта"];
 			university -- university_nk_email
-			university_nk_phone [label="phone"];
+			university_nk_phone [label="Телефон"];
 			university -- university_nk_phone
+		}
+
+		subgraph {
+			user_pk_id [label=<<u>Идентификатор</u>>, rank=1];
+			user -- user_pk_id
+			user_nk_name [label="Имя", rank=2];
+			user -- user_nk_name
+			user_nk_email [label="Почта", rank=3];
+			user -- user_nk_email
+			user_nk_password [label="Пароль", rank=4];
+			user -- user_nk_password
+			user_nk_remember_token [label="Ключ сессии", rank=5];
+			user -- user_nk_remember_token
+			user_nk_student_id [label="Идентификатор студента", rank=6];
+			user -- user_nk_student_id
 		}
 	}
 
 	subgraph {
 		node [shape=diamond];
+		student_user_fk [label="Является"];
 		university_institute_fk [label="Является частью"];
 		institute_cathedra_fk [label="Является частью"];
 		cathedra_group_fk [label="Относится к"];
 		cathedra_teacher_fk [label="Преподаёт на"];
 		discipline_teacher_fk [label="Преподаёт"];
-		discipline_class_fk [label="Занятие по"];
 		group_class_fk [label="У группы"];
 		group_student_fk [label="Учится в"];
-		student_certificate_fk [label="Студента"];
-		attendance_student_fk [label="Студент"];
+		/*student_certificate_fk [label="Студента"];*/
+		attendance_student_fk [label="Студента"];
 		attendance_class_fk [label="На паре"];
-		group_group_fk [label="Подгруппа"]
-		class_teacher_fk [label="Ведёт"]
-
+		group_group_fk [label="Подгруппа"];
+		class_teacher_fk [label="Ведёт"];
+		discipline_class_fk [label="Занятие по"];
 	}
 
 	subgraph {
@@ -219,8 +239,8 @@ graph erd {
 		group -- group_student_fk [color="black:invis:black", label="M"];
 		group_student_fk -- student [color="black:invis:black", label="N"];
 
-		student -- student_certificate_fk [label="1"];
-		student_certificate_fk -- certificate [color="black:invis:black", label="N"];
+		/*student -- student_certificate_fk [label="1"];
+		student_certificate_fk -- certificate [color="black:invis:black", label="N"];*/
 
 		student -- attendance_student_fk [label="1"];
 		attendance_student_fk -- attendance [color="black:invis:black", label="N"];
@@ -233,6 +253,9 @@ graph erd {
 
 		teacher -- class_teacher_fk [label="1"];
 		class_teacher_fk -- class [color="black:invis:black", label="N"];
+
+		student -- student_user_fk [label="1"];
+		user -- student_user_fk [label="1"];
 	}
 
 	{rank=same;university; institute;}
